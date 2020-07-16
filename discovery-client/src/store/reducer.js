@@ -52,7 +52,7 @@ export const robotsByNameReducer = (
   action: Action
 ): RobotsByNameMap => {
   switch (action.type) {
-    case Actions.INILIALIZE_STATE: {
+    case Actions.INITIALIZE_STATE: {
       const { initialRobots } = action.payload
       if (!initialRobots) return state
 
@@ -105,7 +105,7 @@ export const hostsByIpReducer = (
   action: Action
 ): HostsByIpMap => {
   switch (action.type) {
-    case Actions.INILIALIZE_STATE: {
+    case Actions.INITIALIZE_STATE: {
       const { initialRobots } = action.payload
       if (!initialRobots) return state
 
@@ -218,7 +218,7 @@ export const manualAddressesReducer = (
   action: Action
 ): $ReadOnlyArray<Address> => {
   switch (action.type) {
-    case Actions.INILIALIZE_STATE: {
+    case Actions.INITIALIZE_STATE: {
       return action.payload.manualAddresses ?? state
     }
   }

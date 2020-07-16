@@ -16,7 +16,7 @@ import typeof {
 } from '../constants'
 
 import typeof {
-  INILIALIZE_STATE,
+  INITIALIZE_STATE,
   SERVICE_FOUND,
   HEALTH_POLLED,
   REMOVE_ROBOT,
@@ -92,7 +92,7 @@ export type State = $ReadOnly<{|
  * tracking state
  */
 export type InitializeStateAction = $ReadOnly<{|
-  type: INILIALIZE_STATE,
+  type: INITIALIZE_STATE,
   payload: $ReadOnly<{|
     initialRobots?: $ReadOnlyArray<DiscoveryClientRobot>,
     manualAddresses?: $ReadOnlyArray<Address>,
