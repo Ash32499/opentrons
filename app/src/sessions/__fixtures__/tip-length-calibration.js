@@ -22,7 +22,7 @@ export const mockTipLengthCalibrationSessionDetails: TipLengthCalibrationSession
       serial: 'fake serial 2',
     },
   },
-  currentStep: '',
+  currentStep: 'preparingPipette',
   labware: [
     {
       alternatives: ['fake_tprack_load_name'],

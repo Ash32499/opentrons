@@ -15,8 +15,7 @@ import styles from './styles.css'
 import type { CalibrateTipLengthChildProps } from './types'
 
 const COMPLETE_HEADER = 'Tip length calibration complete'
-const COMPLETE_BODY =
-  'Remove Calibration Block from the deck and select where to dispose of tip.'
+const COMPLETE_BODY = 'Remove Calibration Block from the deck.'
 const RETURN_TIP = 'Return tip to tip rack'
 
 export function CompleteConfirmation(
