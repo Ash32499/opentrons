@@ -100,11 +100,11 @@ export function Introduction(props: CalibrateTipLengthChildProps): React.Node {
           </Text>
         </Box>
       </Flex>
-      <div className={styles.button_row}>
+      <Flex width="100%">
         <PrimaryButton className={styles.continue_button}>
           {CONTINUE}
         </PrimaryButton>
-      </div>
+      </Flex>
       {hasBlock ?? <ToolSettingAlertModal {...props} />}
     </>
   )

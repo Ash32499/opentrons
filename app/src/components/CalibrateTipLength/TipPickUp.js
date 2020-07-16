@@ -1,6 +1,19 @@
 // @flow
 import * as React from 'react'
-import { PrimaryButton } from '@opentrons/components'
+import {
+  Box,
+  Flex,
+  PrimaryButton,
+  ALIGN_CENTER,
+  ALIGN_FLEX_START,
+  BORDER_SOLID_LIGHT,
+  DIRECTION_COLUMN,
+  JUSTIFY_CENTER,
+  POSITION_RELATIVE,
+  SPACING_2,
+  SPACING_3,
+  TEXT_ALIGN_CENTER,
+} from '@opentrons/components'
 import { getLabwareDisplayName } from '@opentrons/shared-data'
 
 import type { JogAxis, JogDirection, JogStep } from '../../http-api-client'
@@ -32,7 +45,10 @@ const ASSET_MAP = {
 }
 export function TipPickUp(props: CalibrateTipLengthChildProps): React.Node {
   // TODO: get real isMulti and tiprack from the session
-  const tiprack = {}
+  const { mount, session } = props
+  const tiprackID =
+    session.details.instruments[mount.toLowerCase()]['tiprack_id']
+  const tiprack = session.details.labware.find(l => l.id === tiprackID)
   const isMulti = true
 
   const tiprackDef = React.useMemo(
@@ -66,44 +82,62 @@ export function TipPickUp(props: CalibrateTipLengthChildProps): React.Node {
 
   return (
     <>
-      <div className={styles.modal_header}>
-        <h3>
+      <Flex
+        marginY={SPACING_2}
+        flexDirection={DIRECTION_COLUMN}
+        alignItems={ALIGN_FLEX_START}
+        position={POSITION_RELATIVE}
+        width="100%"
+      >
+        <h3 className={styles.intro_header}>
           {TIP_PICK_UP_HEADER}
           {tiprackDef
             ? getLabwareDisplayName(tiprackDef).replace('µL', 'uL')
             : null}
         </h3>
-      </div>
-      <div className={styles.tip_pick_up_demo_wrapper}>
-        <p className={styles.tip_pick_up_demo_body}>
-          {jogUntilAbove}
-          <b>{` ${TIP_WELL_NAME} `}</b>
-          {POSITION}
-          <br />
-          {AND}
-          <b>{` ${FLUSH} `}</b>
-          {WITH_TOP_OF_TIP}
-        </p>
-        <div className={styles.step_check_video_wrapper}>
-          <video
-            key={demoAsset}
-            className={styles.step_check_video}
-            autoPlay={true}
-            loop={true}
-            controls={false}
+        <Box
+          padding={SPACING_3}
+          border={BORDER_SOLID_LIGHT}
+          borderWidth="2px"
+          width="100%"
+        >
+          <Flex
+            justifyContent={JUSTIFY_CENTER}
+            flexDirection={DIRECTION_COLUMN}
+            alignItems={ALIGN_CENTER}
+            textAlign={TEXT_ALIGN_CENTER}
           >
-            <source src={demoAsset} />
-          </video>
+            <p className={styles.tip_pick_up_demo_body}>
+              {jogUntilAbove}
+              <b>{` ${TIP_WELL_NAME} `}</b>
+              {POSITION}
+              <br />
+              {AND}
+              <b>{` ${FLUSH} `}</b>
+              {WITH_TOP_OF_TIP}
+            </p>
+            <div className={styles.step_check_video_wrapper}>
+              <video
+                key={demoAsset}
+                className={styles.step_check_video}
+                autoPlay={true}
+                loop={true}
+                controls={false}
+              >
+                <source src={demoAsset} />
+              </video>
+            </div>
+          </Flex>
+        </Box>
+        <div>
+          <JogControls jog={jog} />
         </div>
-      </div>
-      <div className={styles.tip_pick_up_controls_wrapper}>
-        <JogControls jog={jog} />
-      </div>
-      <div className={styles.button_row}>
-        <PrimaryButton onClick={pickUpTip} className={styles.command_button}>
-          {TIP_PICK_UP_BUTTON_TEXT}
-        </PrimaryButton>
-      </div>
+        <Flex width="100%">
+          <PrimaryButton onClick={pickUpTip} className={styles.command_button}>
+            {TIP_PICK_UP_BUTTON_TEXT}
+          </PrimaryButton>
+        </Flex>
+      </Flex>
     </>
   )
 }
